@@ -1,0 +1,162 @@
+<!doctype html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{../../../css/bootstrap.min.css}">
+
+<title>Agriculture Application</title>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<img src="../../../Images/agrilogo.jpg" alt="" width="300"
+				height="200	">
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/">Home</a></li> &nbsp;
+					<li class="nav-item"><a class="nav-link " aria-current="page"
+						href="#">Farmers</a></li> &nbsp;
+					<li class="nav-item"><a class="nav-link" href="#">Finance</a></li>
+
+					<li class="nav-item"><a class="nav-link"
+						href="/appointment/showappointments" tabindex="-1"
+						aria-disabled="true">Admin</a></li>
+					<li class="nav-item"><a class="nav-link" href="#"
+						tabindex="-1" aria-disabled="true">About Us</a></li>
+				</ul>
+
+				<p class="d-flex">
+					<input class="form-control me-2" type="search" placeholder="Search"
+						aria-label="Search">
+					<button class="btn btn-outline-success" type="submit">Search</button>
+				</p>
+			</div>
+		</div>
+	</nav>
+	<br>
+	<!-- Modal -->
+	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+		data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">Farmer
+						Details</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form method="POST" th:action="@{/farmers/add}"
+						th:object="${farmer}">
+						<div class="input-group mb-3">
+							<span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+							<input type="text" class="form-control" th:field="*{name}"
+								aria-label="Sizing example input"
+								aria-describedby="inputGroup-sizing-default">
+						</div>
+						<div class="input-group mb-3">
+							<span class="input-group-text" id="inputGroup-sizing-default">Age</span>
+							<input type="text" class="form-control" th:field="*{age}"
+								aria-label="Sizing example input"
+								aria-describedby="inputGroup-sizing-default">
+						</div>
+						<div class="input-group mb-3">
+							<span class="input-group-text" id="inputGroup-sizing-default">Phone
+								Number</span> <input type="text" class="form-control"
+								th:field="*{number}" aria-label="Sizing example input"
+								aria-describedby="inputGroup-sizing-default">
+						</div>
+
+						<div class="input-group mb-3">
+							<span class="input-group-text" id="inputGroup-sizing-default">City</span>
+							<input type="text" class="form-control"
+								aria-label="Sizing example input" th:field="*{city}"
+								aria-describedby="inputGroup-sizing-default">
+						</div>
+						<div class="input-group mb-3">
+							<label for="exampleFormControlFile1">Select Documents </label> <input
+								type="file" class="form-control-file" id="docs"
+								th:field="*{docFiles}" multiple>
+						</div>
+						<div class="input-group mb-3">
+							<label for="exampleFormControlFile1">Select Land Images</label> <input
+								type="file" class="form-control-file" id="docs"
+								th:field="*{landImages}" multiple>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<div class="container">
+		<div class="row align-items-start">
+			<a align="left"><button type="button" class="btn btn-success"
+					data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+					Add Farmer</button></a>
+		</div>
+		<br>
+		<div class="row align-items-center">
+
+			<div class="col" th:each="farm: ${farmers}">
+				<div class="card" style="width: 20rem;">
+					<div class="card-body">
+						<h5 class="card-title" th:text="${farm.name}"></h5>
+						<h6 class="card-subtitle mb-2 text-muted"
+							th:text="${'Unique registration number is ' + farm.id}"></h6>
+						<p class="card-text" th:text="${farm.city}">
+						<h6 th:text="${farm.number}"></h6>
+						</p>
+						<a href='/farmers/delete'><button type="button"
+								class="btn btn-outline-success">Loans</button></a>
+						<button type="button" class="btn btn-outline-success">Upload
+							Documents</button>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+
+	<script src="../../../js/jquery-3.2.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="../../../js/bootstrap.min.js"></script>
+	<footer class="bg-light text-center text-lg-start">
+		<!-- Copyright -->
+		<div class="text-center p-3"
+			style="background-color: rgba(0, 0, 0, 0)">
+			© 2020 Copyright: <a class="text-dark"
+				href="https://mdbootstrap.com/"></a>Narasimha Athreya
+		</div>
+		<!-- Copyright -->
+	</footer>
+</body>
+</html>
